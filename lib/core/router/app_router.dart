@@ -4,7 +4,7 @@ import 'package:news/features/home/home_screen.dart';
 import 'package:news/features/login/login_screen.dart';
 
 class AppRouter {
-  static final router = GoRouter(
+  static final _router = GoRouter(
     redirect: (context, state) async {
       final logged = await AuthService.isLogged();
       if (!logged && state.matchedLocation != '/login') {
@@ -17,4 +17,8 @@ class AppRouter {
       GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
     ],
   );
+
+  static GoRouter getRouter() {
+    return _router;
+  }
 }
