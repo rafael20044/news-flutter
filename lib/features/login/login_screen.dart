@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news/core/services/auth/auth_service.dart';
+import 'package:news/core/services/toast/toast_service.dart';
 import 'package:news/core/widgets/input/input_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,9 +21,20 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void login() {
+  void login() async {
     if (formKey.currentState!.validate()) {
-      
+      var email = emailController.text;
+      var password = passwordController.text;
+      var result = await AuthService.login(email, password);
+      if (result) {
+        // ignore: use_build_context_synchronously
+        ToastService.show(context, 'Login successful', Colors.green, 2);
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, '/');
+        return;
+      }
+      // ignore: use_build_context_synchronously
+      ToastService.show(context, 'Incorrect email or password', Colors.red, 2);
     }
   }
 
@@ -49,7 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                       if (!value.contains('@') || !value.contains('.')) {
                         return 'Please enter a valid email';
-                        
                       }
                       return null;
                     },

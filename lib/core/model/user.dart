@@ -1,11 +1,11 @@
 class User {
-  final String id;
-  final String name;
-  final String name2;
-  final String lastName;
-  final String lastName2;
-  final String email;
-  final String password;
+  String id;
+  String name;
+  String name2;
+  String lastName;
+  String lastName2;
+  String email;
+  String password;
 
   User({
     required this.id,
