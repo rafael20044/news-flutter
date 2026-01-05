@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'package:news/core/model/user.dart';
 import 'package:news/core/services/encrypt/encrypt_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class AuthService {
   static final _keyUsers = 'users';
   static final _keyUser = 'user';
   static final _keyLogged = 'logged';
   static final _encrypt = EncryptService();
+  static final _uuid = Uuid();
 
   static Future<bool> register(User user) async {
     final prefs = await SharedPreferences.getInstance();
@@ -18,6 +20,7 @@ class AuthService {
       return false;
     }
     user.password = _encrypt.encode(user.password);
+    user.id = _uuid.v1();
     listUser.add(user);
     var listUserStr = listUser
         .map((user) => jsonEncode(user.toJson()))

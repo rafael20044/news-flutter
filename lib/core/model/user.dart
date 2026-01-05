@@ -8,7 +8,7 @@ class User {
   String password;
 
   User({
-    required this.id,
+    this.id = '',
     required this.name,
     this.name2 = '',
     required this.lastName,

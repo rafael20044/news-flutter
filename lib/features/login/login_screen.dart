@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news/core/services/auth/auth_service.dart';
 import 'package:news/core/services/toast/toast_service.dart';
+import 'package:news/core/widgets/button/button_widget.dart';
 import 'package:news/core/widgets/input/input_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -30,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // ignore: use_build_context_synchronously
         ToastService.show(context, 'Login successful', Colors.green, 2);
         // ignore: use_build_context_synchronously
-        Navigator.pushNamed(context, '/');
+        context.go('/');
         return;
       }
       // ignore: use_build_context_synchronously
@@ -38,12 +40,17 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void goToRegister() {
+    context.push('/register');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(top: 160, left: 20, right: 20),
+        padding: EdgeInsets.only(top: 130, left: 20, right: 20),
         child: Column(
+          spacing: 10,
           children: [
             Image.asset('assets/images/newspaper.png', height: 150, width: 150),
             Form(
@@ -81,12 +88,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
-                  ElevatedButton(
-                    onPressed: () => login(),
-                    child: Text('Login'),
-                  ),
+                  ButtonWidget(click: login, text: 'Login'),
                 ],
               ),
+            ),
+            Row(
+              children: [
+                Text('Create acount ', style: TextStyle(fontSize: 20)),
+                InkWell(
+                  onTap: () => goToRegister(),
+                  child: Text(
+                    'here',
+                    style: TextStyle(fontSize: 20, color: Colors.blue),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
