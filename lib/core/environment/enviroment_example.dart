@@ -1,5 +1,7 @@
 enum EnviromentExample {
-  countryUrl('');
+  countryUrl(''),
+  newsUrl(''),
+  apiKey('');
 
   final String value;
 

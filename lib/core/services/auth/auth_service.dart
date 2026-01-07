@@ -56,6 +56,12 @@ class AuthService {
     prefs.setBool(_keyLogged, false);
   }
 
+  static Future<User> getUser() async{
+    final prefs = await SharedPreferences.getInstance();
+    final userStr = prefs.getString(_keyUser);
+    return User.fromJson(jsonDecode(userStr!));
+  }
+
   static bool _isPresent(List<User> list, String email) {
     for (var user in list) {
       if (user.email == email) {
