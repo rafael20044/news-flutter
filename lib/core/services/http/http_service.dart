@@ -1,8 +1,8 @@
-import 'package:dio/dio.dart';
+import 'package:news/core/network/dio_client.dart';
 
 class HttpService {
   static final HttpService _instance = HttpService._internal();
-  final _dio = Dio();
+  final _dio = DioClient().dio;
 
   factory HttpService() {
     return _instance;
