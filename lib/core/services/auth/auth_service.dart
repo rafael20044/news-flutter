@@ -26,7 +26,6 @@ class AuthService {
         .map((user) => jsonEncode(user.toJson()))
         .toList();
     prefs.setStringList(_keyUsers, listUserStr);
-    prefs.setBool(_keyLogged, true);
     return true;
   }
 
@@ -40,6 +39,7 @@ class AuthService {
     var isCorrect = _encrypt.match(password, user.password);
     if (isCorrect) {
       prefs.setString(_keyUser, jsonEncode(user.toJson()));
+      prefs.setBool(_keyLogged, true);
       return true;
     }
     return false;

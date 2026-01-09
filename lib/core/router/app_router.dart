@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:news/core/services/auth/auth_service.dart';
 import 'package:news/features/home/home_screen.dart';
 import 'package:news/features/login/login_screen.dart';
+import 'package:news/features/profile/profile_screen.dart';
 import 'package:news/features/register/register_screen.dart';
 
 class AppRouter {
@@ -20,6 +21,7 @@ class AppRouter {
       GoRoute(path: '/', builder: (context, state) => HomeScreen()),
       GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
       GoRoute(path: '/register', builder: (context, state) => RegisterScreen()),
+      GoRoute(path: '/profile', builder: (context, state) => ProfileScreen(),),
     ],
   );
 
