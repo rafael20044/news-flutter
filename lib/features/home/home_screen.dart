@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news/core/environment/environment.dart';
 import 'package:news/core/model/news.dart';
 import 'package:news/core/model/user.dart';
@@ -35,7 +36,9 @@ class _HomeState extends State<HomeScreen> {
     });
   }
 
-  void goToProfile() {}
+  void goToProfile() {
+    context.push('/profile');
+  }
 
   @override
   void initState() {
@@ -89,13 +92,16 @@ class _HomeState extends State<HomeScreen> {
                   itemCount: data!.articles.length,
                   itemBuilder: (context, index) {
                     var news = data.articles[index];
-                    return CardWidget(
-                      author: news.author,
-                      description: news.description,
-                      publishedAt: news.publishedAt,
-                      title: news.title,
-                      urlToImage: news.urlToImage,
-                      url: news.url,
+                    return Container(
+                      padding: EdgeInsets.all(12),
+                      child: CardWidget(
+                        author: news.author,
+                        description: news.description,
+                        publishedAt: news.publishedAt,
+                        title: news.title,
+                        urlToImage: news.urlToImage,
+                        url: news.url,
+                      ),
                     );
                   },
                 ),

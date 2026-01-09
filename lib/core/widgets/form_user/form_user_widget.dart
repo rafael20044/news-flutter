@@ -11,8 +11,9 @@ import 'package:news/core/widgets/input/input_widget.dart';
 
 class FormUserWidget extends StatefulWidget {
   final bool isRegister;
+  final User? user;
 
-  const FormUserWidget({super.key, this.isRegister = true});
+  const FormUserWidget({super.key, this.isRegister = true, this.user});
 
   @override
   State<FormUserWidget> createState() => _FormUserWidgetState();
@@ -40,7 +41,7 @@ class _FormUserWidgetState extends State<FormUserWidget> {
     return null;
   }
 
-  void register() async {
+  void submit() async {
     if (_formKey.currentState!.validate()) {
       final name = nameController.text;
       final name2 = name2Controller.text;
@@ -74,11 +75,25 @@ class _FormUserWidgetState extends State<FormUserWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    nameController.text = widget.user?.name ?? '';
+    name2Controller.text = widget.user?.name2 ?? '';
+    lastNameController.text = widget.user?.lastName ?? '';
+    lastName2Controller.text = widget.user?.lastName2 ?? '';
+    emailController.text = widget.user?.email ?? '';
+    countryController.text = widget.user?.country ?? '';
+  }
+
+  @override
   void dispose() {
     nameController.dispose();
     name2Controller.dispose();
+    lastNameController.dispose();
     lastName2Controller.dispose();
-    lastName2Controller.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    countryController.dispose();
     super.dispose();
   }
 
@@ -120,7 +135,7 @@ class _FormUserWidgetState extends State<FormUserWidget> {
           ),
           InputWidget(
             controller: passwordController,
-            labelText: 'password',
+            labelText: (widget.isRegister) ? 'Password' : 'New password',
             obscureText: true,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -149,6 +164,7 @@ class _FormUserWidgetState extends State<FormUserWidget> {
               final data = snapshot.data;
 
               return DropdownButtonFormField(
+                initialValue: countryController.text,
                 isExpanded: true,
                 items: (data!.data..sort((a, b) => a.name.compareTo(b.name)))
                     .map(
@@ -172,7 +188,10 @@ class _FormUserWidgetState extends State<FormUserWidget> {
               );
             },
           ),
-          ButtonWidget(text: 'Register', click: register),
+          ButtonWidget(
+            text: (widget.isRegister) ? 'Register' : 'Update',
+            click: submit,
+          ),
         ],
       ),
     );
